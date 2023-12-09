@@ -385,7 +385,7 @@ class Demucs(nn.Module):
         if rescale:
             rescale_module(self, reference=rescale)
 
-    def valid_length(self, length):
+    def valid_length_demucs(self, length):
         """
         Return the nearest valid length to use with the model so that
         there is no time steps left over in a convolution, e.g. for all
