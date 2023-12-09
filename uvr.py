@@ -6,8 +6,15 @@ from gui_data.wxpython_dnd2 import (CF_HDROP, CF_TEXT, CF_UNICODETEXT, DND_ALL,
 
 # ... rest of the code ...
 
-# Replace tkinter.Tk() with wx.Frame()
-main_window = Frame()
+# Refactor to make the code more testable
+class UVR(Frame):
+    def __init__(self):
+        super().__init__()
+
+    # ... rest of the code ...
+
+# Create an instance of UVR
+main_window = UVR()
 
 # ... rest of the code ...
 
@@ -15,3 +22,10 @@ main_window = Frame()
 # ...
 
 # ... rest of the code ...
+    def setUp(self):
+        # Setup resources before each test
+        self.uvr = UVR()
+
+    def tearDown(self):
+        # Clean up resources after each test
+        self.uvr = None
