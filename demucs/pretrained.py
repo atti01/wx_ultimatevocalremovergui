@@ -78,7 +78,12 @@ def get_model(name: str,
         model_repo = LocalRepo(repo)
         bag_repo = BagOnlyRepo(repo, model_repo)
     any_repo = AnyModelRepo(model_repo, bag_repo)
-    model = any_repo.get_model(name)
+    try:
+        model = any_repo.get_model(name)
+    except ModelLoadingError:
+        logger.error(f"Failed to load model: {name}")
+        return None
+    return model
     model.eval()
     return model
 
@@ -86,7 +91,11 @@ def get_model_from_args(args):
     """
     Load local model package or pre-trained model.
     """
-    return get_model(name=args.name, repo=args.repo)
+    model = get_model(name=args.name, repo=args.repo)
+    if model is None:
+        logger.error(f"Failed to load model from args: {args}")
+        return None
+    return model
 
 logger = logging.getLogger(__name__)
 ROOT = "https://dl.fbaipublicfiles.com/demucs/v3.0/"
