@@ -17,7 +17,7 @@ from .demucs import DConv, rescale_module
 from .states import capture_init
 from .spec import spectro, ispectro
 
-def pad1d(x: torch.Tensor, paddings: tp.Tuple[int, int], mode: str = 'constant', value: float = 0.):
+def pad1d_hdemucs(x: torch.Tensor, paddings: tp.Tuple[int, int], mode: str = 'constant', value: float = 0.):
     """Tiny wrapper around F.pad, just to allow for reflect padding on small input.
     If this is the case, we insert extra 0 padding to the right before the reflection happen."""
     x0 = x
