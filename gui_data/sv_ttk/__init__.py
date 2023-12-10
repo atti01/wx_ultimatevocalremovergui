@@ -16,7 +16,7 @@ def init(func):
         global root
 
         if not inited:
-            from tkinter import _default_root
+            from PyQt5.QtWidgets import _default_root
 
             path = (Path(__file__).parent / sun_valley_tcl).resolve()
 
