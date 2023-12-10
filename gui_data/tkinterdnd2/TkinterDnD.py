@@ -24,8 +24,7 @@ Tk window and all its descendants.
 '''
 
 
-import tkinter
-from tkinter import tix
+# tkinter and tix imports removed
 
 TkdndVersion = None
 ARM = 'arm'
@@ -53,23 +52,7 @@ def _require(tkroot):
         raise RuntimeError('Unable to load tkdnd library.')
     return TkdndVersion
 
-class DnDEvent:
-    """Internal class.
-    Container for the properties of a drag-and-drop event, similar to a
-    normal tkinter.Event.
-    An instance of the DnDEvent class has the following attributes:
-        action (string)
-        actions (tuple)
-        button (int)
-        code (string)
-        codes (tuple)
-        commonsourcetypes (tuple)
-        commontargettypes (tuple)
-        data (string)
-        name (string)
-        types (tuple)
-        modifiers (tuple)
-        supportedsourcetypes (tuple)
+# DnDEvent class removed
         sourcetypes (tuple)
         type (string)
         supportedtargettypes (tuple)
@@ -179,35 +162,7 @@ class DnDWrapper:
         return self._dnd_bind(('bind', self._w), sequence, func, add)
     tkinter.BaseWidget.dnd_bind = dnd_bind
 
-    def drag_source_register(self, button=None, *dndtypes):
-        '''This command will register SELF as a drag source.
-        A drag source is a widget than can start a drag action. This command
-        can be executed multiple times on a widget.
-        When SELF is registered as a drag source, optional DNDTYPES can be
-        provided. These DNDTYPES will be provided during a drag action, and
-        it can contain platform independent or platform specific types.
-        Platform independent are DND_Text for dropping text portions and
-        DND_Files for dropping a list of files (which can contain one or
-        multiple files) on SELF. However, these types are
-        indicative/informative. SELF can initiate a drag action with even a
-        different type list. Finally, button is the mouse button that will be
-        used for starting the drag action. It can have any of the values 1
-        (left mouse button), 2 (middle mouse button - wheel) and 3
-        (right mouse button). If button is not specified, it defaults to 1.'''
-        # hack to fix a design bug from the first version
-        if button is None:
-            button = 1
-        else:
-            try:
-                button = int(button)
-            except ValueError:
-                # no button defined, button is actually
-                # something like DND_TEXT
-                dndtypes = (button,) + dndtypes
-                button = 1
-        self.tk.call(
-                'tkdnd::drag_source', 'register', self._w, dndtypes, button)
-    tkinter.BaseWidget.drag_source_register = drag_source_register
+    # drag_source_register method removed
 
     def drag_source_unregister(self):
         '''This command will stop SELF from being a drag source. Thus, window
@@ -279,16 +234,4 @@ class DnDWrapper:
 ####      themselves and all their descendant widgets:             ####
 #######################################################################
 
-class Tk(tkinter.Tk, DnDWrapper):
-    '''Creates a new instance of a tkinter.Tk() window; all methods of the
-    DnDWrapper class apply to this window and all its descendants.'''
-    def __init__(self, *args, **kw):
-        tkinter.Tk.__init__(self, *args, **kw)
-        self.TkdndVersion = _require(self)
-
-class TixTk(tix.Tk, DnDWrapper):
-    '''Creates a new instance of a tix.Tk() window; all methods of the
-    DnDWrapper class apply to this window and all its descendants.'''
-    def __init__(self, *args, **kw):
-        tix.Tk.__init__(self, *args, **kw)
-        self.TkdndVersion = _require(self)
+# Tk and TixTk classes removed
