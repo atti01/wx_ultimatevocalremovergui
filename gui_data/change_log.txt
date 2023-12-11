@@ -14,7 +14,7 @@ Fixes & Changes going from UVR v5.4 to v5.5:
 
 ~ The progress bar is now fully synced up with every process in the application.
 ~ Fixed low-resolution icon.
-~ Added the ability to download models manually if the application can't connect 
+~ Removed tkinter-related code. 
    to the internet.
 ~ Drag-n-drop is functional across all os platforms.
 ~ Resolved mp3 tag issue in MacOS version.
